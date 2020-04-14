@@ -1,0 +1,8 @@
+<Multi_key> <a>  		: "ä"   adiaeresis 
+<Multi_key>  <A>       	: "Ä"   Adiaeresis 
+<Multi_key> <o>  		: "ö"   adiaeresis 
+<Multi_key>  <O>       	: "Ö"   Adiaeresis 
+<Multi_key> <u>  		: "ü"   adiaeresis 
+<Multi_key>  <U>       	: "Ü"   Adiaeresis 
+<Multi_key>  <s>       	: "ß"   Adiaeresis 
+<Multi_key>  <S>  		: "ß   adiaeresis 
