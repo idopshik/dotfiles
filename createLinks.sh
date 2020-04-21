@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+# paths must be absolute
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.bashrc ~/.bashrc
 ln -sf ~/dotfiles/.fzf.bash ~/.fzf.bash
