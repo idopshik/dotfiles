@@ -1,7 +1,17 @@
  # alias vi='vim -u NORC'
 alias vi="vim -u ~/.vim_runtime/vimrcs/noplugins_vimrc"
 alias covid="curl https://trackercli.com/russia"
+alias mongostart="sudo mongod --fork --logpath /data/db/log.log"
 
+alias python='/usr/bin/python3.7'
+alias ipython='ipython3'
+
+export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/go/bin
+export PATH=$PATH:/usr/local/go/bin
+
+export GOPATH=~/go
+export GOBIN=~/go/bin
 
 # :sh or regular shell?
 # http://bashrcgenerator.com/
