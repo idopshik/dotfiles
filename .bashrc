@@ -13,21 +13,6 @@ export PATH=$PATH:/usr/local/go/bin
 export GOPATH=~/go
 export GOBIN=~/go/bin
 
-# :sh or regular shell?
-# http://bashrcgenerator.com/
-BLUE="$(tput setaf 4)"
-GREEN="$(tput setaf 2)"
-GREY="$(tput setaf 244)"
-RED="$(tput setaf 1)"
-YELLOW="$(tput setaf 3)"
-
-vim_prompt() {
-  if [ -n "$VIMRUNTIME" ]; then
-    echo "${RED}vim ";
-    else 
-       echo "\u@\h:";
-  fi
-}
 
 # get current branch in git repo
 function parse_git_branch() {
@@ -80,10 +65,34 @@ path_len() {
   max_path=20
   currentPath=$(pwd)
   pathLen=${#currentPath}
-  [ ${pathLen} -gt ${max_path} ] && printf "\n$" || printf "$"
+  [ ${pathLen} -gt ${max_path} ] && printf "\n$ " || printf "$<20"
 }
 
-export PS1="\[$(vim_prompt)\]\[$(tput sgr0)\]\[\033[38;5;6m\][\[$(tput sgr0)\]\[\033[38;5;14m\]\w\[$(tput sgr0)\]\[\033[38;5;6m\]]\[$(tput sgr0)\]\`parse_git_branch\`$(path_len) \[$(tput sgr0)\]"
+# http://bashrcgenerator.com/
+GREEN="\001$(tput setaf 2)\002"
+GREY="\001$(tput setaf 244)\002"
+RED="\001$(tput setaf 1)\002"
+YELLOW="\001$(tput setaf 3)\002"
+CYAN="\001$(tput setaf 6)\002"
+WHITE="\001$(tput setaf 7)\002"
+
+vim_prompt() {
+  if [ -n "$VIMRUNTIME" ]; then
+    echo "${RED}vim ";
+    else 
+       echo "${WHITE}\u@\h:";
+  fi
+} 
+
+git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+PS1="$(vim_prompt)"
+PS1+="${CYAN}[\w]"
+PS1+="${GREEN}$(git_branch)"
+PtS1+="${WHITE}$(path_len) "
+
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
