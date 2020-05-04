@@ -12,48 +12,54 @@ export PATH=$PATH:/usr/local/go/bin
 
 export GOPATH=~/go
 export GOBIN=~/go/bin
-
-
 # http://bashrcgenerator.com/
-GREEN="\001$(tput setaf 2)\002"
-GREY="\001$(tput setaf 244)\002"
-RED="\001$(tput setaf 1)\002"
-YELLOW="\001$(tput setaf 3)\002"
-CYAN="\001$(tput setaf 6)\002"
-WHITE="\001$(tput setaf 7)\002"
-OCHRE="\001$(tput setaf 214)\002"
+
+RED="\\[$(tput setaf 1)\\]"
+CYAN="\\[$(tput setaf 6)\\]"
+LIGHTGRAY="\\[$(tput setaf 7)\\]"
 
 vim_prompt() {
   if [ -n "$VIMRUNTIME" ]; then
-    echo "${RED}vim ";
+    echo "${RED} vim ";
     else 
-       echo "\u@\h:";
+       echo "\\u@\\h:";
   fi
 } 
 
-
 # get current branch in git repo
-function parse_git_branch() {
-	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+function parse_git_branch() { BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
 	if [ ! "${BRANCH}" == "" ]
 	then
-		STAT=`parse_git_dirty`
-		echo "[${BRANCH}${STAT}]"
+		STAT=$(parse_git_dirty)
+        echo "[${BRANCH}${STAT}]"
 	else
 		echo ""
 	fi
 }
 
+function colorize {
+  # Capture the output of the "git status" command.
+  git_status="$(git status 2> /dev/null)"
+
+  # Set color based on clean/staged/dirty.
+  if [[ ${git_status} =~ "working tree clean" ]]; then
+      #GREEN
+     GITCOLOR="\\[$(tput setaf 2)\\]"
+  else
+      #OCHRE
+     GITCOLOR="\\[$(tput setaf 208)\\]"
+  fi
+}
 
 # get current status of git repo
 function parse_git_dirty {
-	status=`git status 2>&1 | tee`
-	dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
-	untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
-	ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
-	newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
-	renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
-	deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
+	status=$(git status 2>&1 | tee)
+	dirty=$(echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?")
+	untracked=$(echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?")
+	ahead=$(echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?")
+	newfile=$(echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?")
+	renamed=$(echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?")
+	deleted=$(echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?")
 	bits=''
 	if [ "${renamed}" == "0" ]; then
 		bits=">${bits}"
@@ -80,12 +86,12 @@ function parse_git_dirty {
 	fi
 }
 
-
 PS1="$(vim_prompt)"
-PS1+="${CYAN}[\w]"
-# PS1+="${GREEN}\$(git_branch)"
-PS1+="${GREEN}\$(parse_git_branch)"
-PS1+="${WHITE}$ "
+PS1+="${CYAN}[\\w]"
+colorize
+PS1+=${GITCOLOR}
+PS1+="\$(parse_git_branch)"
+PS1+="${LIGHTGRAY}$ "
 export PS1
 
 
