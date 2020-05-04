@@ -21,7 +21,7 @@ RED="\001$(tput setaf 1)\002"
 YELLOW="\001$(tput setaf 3)\002"
 CYAN="\001$(tput setaf 6)\002"
 WHITE="\001$(tput setaf 7)\002"
-# WHITE="\[\e[32m\]"
+OCHRE="\001$(tput setaf 214)\002"
 
 vim_prompt() {
   if [ -n "$VIMRUNTIME" ]; then
@@ -31,9 +31,21 @@ vim_prompt() {
   fi
 } 
 
-
 git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+git_color() {
+  local git_status="$(git status 2> /dev/null)"
+
+  if [[ ! $git_status =~ "working directory clean" ]]; then
+    echo -e $RED
+  elif [[ $git_status =~ "Your branch is ahead of" ]]; then
+    echo -e $YELLOW
+  elif [[ $git_status =~ "nothing to commit" ]]; then
+    echo -e $GREEN
+  else
+    echo -e $OCHRE
+  fi
 }
 
 export GIT_PS1_SHOWDIRTYSTATE=1
@@ -41,7 +53,9 @@ export GIT_PS1_SHOWCOLORHINTS=1
 
 PS1="$(vim_prompt)"
 PS1+="${CYAN}[\w]"
-PS1+="${GREEN}\$(git_branch)"
+# PS1+="${GREEN}\$(git_branch)"
+PS1+="\$(git_color)"
+PS1+="\$(git_branch)"
 PS1+="${WHITE}$ "
 export PS1
 
