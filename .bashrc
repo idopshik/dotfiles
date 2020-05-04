@@ -21,30 +21,29 @@ RED="\001$(tput setaf 1)\002"
 YELLOW="\001$(tput setaf 3)\002"
 CYAN="\001$(tput setaf 6)\002"
 WHITE="\001$(tput setaf 7)\002"
+# WHITE="\[\e[32m\]"
 
 vim_prompt() {
   if [ -n "$VIMRUNTIME" ]; then
     echo "${RED}vim ";
     else 
-       echo "${WHITE}\u@\h:";
+       echo "\u@\h:";
   fi
 } 
 
-gb() {
-        echo -n '(' && git branch 2>/dev/null | grep '^*' | colrm 1 2 | tr -d '\n' && echo  -n ')'
-}
+
 git_branch() {
-        gb | sed 's/()//'
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWCOLORHINTS=1
 
-
 PS1="$(vim_prompt)"
 PS1+="${CYAN}[\w]"
-PS1+="${GREEN}$(git_branch)"
+PS1+="${GREEN}\$(git_branch)"
 PS1+="${WHITE}$ "
+export PS1
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
