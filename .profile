@@ -8,4 +8,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-export GOPATH=~/go
+PATH=$PATH:/usr/lib/postgresql/11/bin
+export PATH
+
+

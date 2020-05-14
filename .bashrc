@@ -1,10 +1,13 @@
  # alias vi='vim -u NORC'
-alias vi="vim -u ~/.vim_runtime/vimrcs/noplugins_vimrc"
-alias covid="curl https://trackercli.com/russia"
+alias vi="vim -u ~/.vim_runtime/vimrcs/basic.vim"
 alias mongostart="sudo mongod --fork --logpath /data/db/log.log"
+alias fzfh="rg --hidden -l \"\" | fzf"
 
 alias python='/usr/bin/python3.7'
 alias ipython='ipython3'
+
+#normal mode in bash
+set -o vi
 
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/go/bin
@@ -17,6 +20,7 @@ export GOBIN=~/go/bin
 RED="\\[$(tput setaf 1)\\]"
 CYAN="\\[$(tput setaf 6)\\]"
 LIGHTGRAY="\\[$(tput setaf 7)\\]"
+YELLOW="\\[$(tput setaf 3)\\]"
 
 vim_prompt() {
   if [ -n "$VIMRUNTIME" ]; then
@@ -45,9 +49,12 @@ function colorize {
   if [[ ${git_status} =~ "working tree clean" ]]; then
       #GREEN
      GITCOLOR="\\[$(tput setaf 2)\\]"
+  elif [[ ${git_status} =~ "branch is ahead" ]]; then
+      #YELLOW
+      GITCOLOR="\\[$(tput setaf 3)\\]"
   else
       #OCHRE
-     GITCOLOR="\\[$(tput setaf 208)\\]"
+      GITCOLOR="\\[$(tput setaf 208)\\]"
   fi
 }
 
