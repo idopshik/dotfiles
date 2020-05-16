@@ -102,6 +102,16 @@ PS1+="${LIGHTGRAY}$ "
 export PS1
 
 
+
+# include hidden by default 
+# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+
+# alternative (to respect .gitignore)
+# let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
+# Setting fd as the default source for fzf
+export FZF_DEFAULT_COMMAND='fd --type f'
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # note taking function and command completion
