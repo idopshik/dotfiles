@@ -9,3 +9,4 @@ ln -sf ~/dotfiles/.XCompose ~/.XCompose
 ln -sf ~/dotfiles/.profile  ~/.profile
 ln -sf ~/dotfiles/.gitconfig  ~/.gitconfig
 ln -sf ~/dotfiles/zathurarc  ~/.config/zathura/zathurarc
+ln -sf ~/dotfiles/.ctags  ~/.ctags

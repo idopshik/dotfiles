@@ -41,6 +41,20 @@ function parse_git_branch() { BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/
 	fi
 }
 
+
+# new line if long
+#TODO why it's not working?
+function conditional_length() {
+
+    local pwdmaxlen=30
+
+    if [[ ${#PWD} -gt $pwdmaxlen ]]; then
+        echo "\n $ "
+	else
+        echo " $ "
+	fi
+}
+
 function colorize {
   # Capture the output of the "git status" command.
   git_status="$(git status 2> /dev/null)"
@@ -98,8 +112,12 @@ PS1+="${CYAN}[\\w]"
 colorize
 PS1+=${GITCOLOR}
 PS1+="\$(parse_git_branch)"
-PS1+="${LIGHTGRAY}$ "
+PS1+="${LIGHTGRAY}"
+PS1+="$(conditional_length)"
+# PS1+="${LIGHTGRAY}$ "
+
 export PS1
+
 
 
 

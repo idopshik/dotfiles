@@ -1,3 +1,4 @@
+set selection-clipboard clipboard
 # Zathura configuration file
 # See man `man zathurarc'
 
