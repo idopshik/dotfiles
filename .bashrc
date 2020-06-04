@@ -55,6 +55,17 @@ function conditional_length() {
 	fi
 }
 
+function levelcolorize {
+
+  # Set color based on clean/staged/dirty.
+  if [[ $SHLVL -gt 1 ]]; then
+      #VIOLET
+     PATHCOLOR="\\[$(tput setaf 12)\\]"
+  else
+      #CYAN
+      PATHCOLOR="\\[$(tput setaf 6)\\]"
+  fi
+}
 function colorize {
   # Capture the output of the "git status" command.
   git_status="$(git status 2> /dev/null)"
@@ -108,7 +119,9 @@ function parse_git_dirty {
 }
 
 PS1="$(vim_prompt)"
-PS1+="${CYAN}[\\w]"
+levelcolorize
+PS1+=${PATHCOLOR}
+PS1+="[\\w]"
 colorize
 PS1+=${GITCOLOR}
 PS1+="\$(parse_git_branch)"
