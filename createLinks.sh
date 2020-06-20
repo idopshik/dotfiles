@@ -10,3 +10,4 @@ ln -sf ~/dotfiles/.profile  ~/.profile
 ln -sf ~/dotfiles/.gitconfig  ~/.gitconfig
 ln -sf ~/dotfiles/zathurarc  ~/.config/zathura/zathurarc
 ln -sf ~/dotfiles/.ctags  ~/.ctags
+ln -s /home/st/Dropbox/.vim_cloud/vim-snippets/UltiSnips /home/st/.vim

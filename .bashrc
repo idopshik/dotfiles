@@ -2,12 +2,15 @@
 alias vi="vim -u ~/.vim_runtime/vimrcs/basic.vim"
 alias mongostart="sudo mongod --fork --logpath /data/db/log.log"
 alias fzfh="rg --hidden -l \"\" | fzf"
+alias tvd="/home/st/Dropbox/Linux_or_Vim_related/scripts/total_video_duration.sh"
 
 alias python='/usr/bin/python3.7'
 alias ipython='ipython3'
 
 #normal mode in bash
 set -o vi
+
+export NODE_PATH=/usr/local/lib/node_modules
 
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/go/bin
@@ -130,6 +133,34 @@ PS1+="$(conditional_length)"
 # PS1+="${LIGHTGRAY}$ "
 
 export PS1
+
+function nest {
+    terminology &
+}
+
+function unnest {
+    kill  -1 $(ps | sed 1d | awk '{print $1}')
+    terminology
+}
+
+# Really doubt if I need it and will to get used to it.
+# quit ranger and let the shell sync the directory back from ranger.
+
+function ranger {
+    local IFS=$'\t\n'
+    local tempfile="$(mktemp -t tmp.XXXXXX)"
+    local ranger_cmd=(
+        command
+        ranger
+        --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+    )
+
+    "${ranger_cmd[@]}" "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$PWD" ]]; then
+        cd -- "$(cat "$tempfile")" || return
+    fi
+    command rm -f -- "$tempfile" 2>/dev/null
+}
 
 
 
