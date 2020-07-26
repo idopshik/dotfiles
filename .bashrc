@@ -3,6 +3,7 @@ alias vi="vim -u ~/.vim_runtime/vimrcs/basic.vim"
 alias mongostart="sudo mongod --fork --logpath /data/db/log.log"
 alias fzfh="rg --hidden -l \"\" | fzf"
 alias tvd="/home/st/Dropbox/Linux_or_Vim_related/scripts/total_video_duration.sh"
+alias tmux-dev="/home/st/Dropbox/Linux_or_Vim_related/scripts/tmux-dev.sh"
 
 alias python='/usr/bin/python3.7'
 alias ipython='ipython3'
