@@ -1,21 +1,25 @@
- # alias vi='vim -u NORC'
+# alias vi='vim -u NORC'
 alias vi="vim -u ~/.vim_runtime/vimrcs/basic.vim"
 alias mongostart="sudo mongod --fork --logpath /data/db/log.log"
 alias fzfh="rg --hidden -l \"\" | fzf"
 alias tvd="/home/st/Dropbox/Linux_or_Vim_related/scripts/total_video_duration.sh"
 alias tmux-dev="/home/st/Dropbox/Linux_or_Vim_related/scripts/tmux-dev.sh"
 
-alias python='/usr/bin/python3.7'
+alias python='/usr/bin/python3.10'
 alias ipython='ipython3'
 
 #normal mode in bash
 set -o vi
+
+export CC=/usr/bin/gcc-10
 
 export NODE_PATH=/usr/local/lib/node_modules
 
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/go/bin
 export PATH=$PATH:/usr/local/go/bin
+
+export CUSTOMPYTHON=/home/st/Documents/TkinterOne/venv/bin/python3
 
 export GOPATH=~/go
 export GOBIN=~/go/bin
@@ -173,7 +177,7 @@ function ranger {
 # let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 # Setting fd as the default source for fzf
-export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND='fdfind --type f'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
