@@ -23,6 +23,9 @@ export CUSTOMPYTHON=/home/st/Documents/TkinterOne/venv/bin/python3
 
 export GOPATH=~/go
 export GOBIN=~/go/bin
+
+export EDITOR=vim
+
 # http://bashrcgenerator.com/
 
 RED="\\[$(tput setaf 1)\\]"
