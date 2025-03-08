@@ -9,7 +9,14 @@ alias python='/usr/bin/python3.10'
 alias ipython='ipython3'
 
 #normal mode in bash
+
+#as in async vid tutorial was suggested
+export PYTHONASYNCIODEBUG=1
+export PYTHONTRACEMALLOC=1
+
 set -o vi
+
+export PATH="/home/$USER/bin:$PATH"
 
 export CC=/usr/bin/gcc-10
 
